@@ -34,20 +34,22 @@ class Exception extends \Exception
 
     public const PARAMS_LOGGER_DRIVER_INVALID = 2005;
 
+    public const PARAMS_HTTP_CLIENT_FACTORY_INVALID = 2006;
+
+    public const PARAMS_PLUGIN_INCOMPATIBLE = 2007;
+
+    public const PARAMS_PARSER_DIRECTION_INVALID = 2008;
+
     /**
      * 关于响应.
      */
-    public const RESPONSE_ERROR = 5000;
+    public const RESPONSE_ERROR = 3000;
 
-    public const REQUEST_RESPONSE_ERROR = 5001;
+    public const REQUEST_RESPONSE_ERROR = 3001;
 
-    public const RESPONSE_UNPACK_ERROR = 5002;
+    public const RESPONSE_UNPACK_ERROR = 3002;
 
-    public const RESPONSE_CODE_WRONG = 5003;
-
-    public const RESPONSE_MISSING_NECESSARY_PARAMS = 5004;
-
-    public const RESPONSE_EMPTY = 5005;
+    public const RESPONSE_EMPTY = 3003;
 
     public mixed $extra;
 

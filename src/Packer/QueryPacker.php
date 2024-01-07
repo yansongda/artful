@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Yansongda\ArtfulArtful\Packer;
+namespace Yansongda\Artful\Packer;
 
-use Yansongda\Pay\Contract\PackerInterface;
+use Yansongda\Artful\Contract\PackerInterface;
 use Yansongda\Supports\Arr;
 use Yansongda\Supports\Collection;
 
 class QueryPacker implements PackerInterface
 {
-    public function pack(null|array|Collection $payload): string
+    public function pack(null|array|Collection $payload, ?array $params = null): string
     {
         return Collection::wrap($payload)->query();
     }
 
-    public function unpack(string $payload): array
+    public function unpack(string $payload, ?array $params = null): array
     {
-        return Arr::wrapQuery($payload, true);
+        return Arr::wrapQuery($payload, !empty($params['_raw']));
     }
 }

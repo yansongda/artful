@@ -10,7 +10,7 @@ use Yansongda\Supports\Collection;
 
 class JsonPacker implements PackerInterface
 {
-    public function pack(null|array|Collection $payload): string
+    public function pack(null|array|Collection $payload, ?array $params = null): string
     {
         if (empty($payload)) {
             return '';
@@ -19,7 +19,7 @@ class JsonPacker implements PackerInterface
         return Collection::wrap($payload)->toJson();
     }
 
-    public function unpack(string $payload): ?array
+    public function unpack(string $payload, ?array $params = null): ?array
     {
         return Arr::wrapJson($payload);
     }

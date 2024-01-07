@@ -7,6 +7,7 @@ namespace Yansongda\Artful\Plugin;
 use Closure;
 use Psr\Http\Message\ResponseInterface;
 use Yansongda\Artful\Contract\PluginInterface;
+use Yansongda\Artful\Exception\Exception;
 use Yansongda\Artful\Exception\InvalidParamsException;
 use Yansongda\Artful\Logger;
 use Yansongda\Artful\Rocket;
@@ -26,13 +27,15 @@ class ParserPlugin implements PluginInterface
 
         Logger::debug('[ParserPlugin] 插件开始装载', ['rocket' => $rocket]);
 
-        /* @var ResponseInterface $response */
         $response = $rocket->getDestination();
+        $direction = get_direction($rocket->getDirection());
+        $packer = get_packer($rocket->getPacker());
 
-        $rocket->setDestination(get_direction($rocket->getDirection())->guide(
-            get_packer($rocket->getPacker()),
-            $response
-        ));
+        if (!is_null($response) && !($response instanceof ResponseInterface)) {
+            throw new InvalidParamsException(Exception::PARAMS_PARSER_DIRECTION_INVALID, '参数异常: 解析插件中 `Rocket` 的 `destination` 只能是 `null` 或者 `ResponseInterface`');
+        }
+
+        $rocket->setDestination($direction->guide($packer, $response));
 
         Logger::debug('[ParserPlugin] 插件装载完毕', ['rocket' => $rocket]);
 
