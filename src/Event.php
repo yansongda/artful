@@ -6,6 +6,7 @@ namespace Yansongda\Artful;
 
 use Yansongda\Artful\Contract\EventDispatcherInterface;
 use Yansongda\Artful\Exception\ContainerException;
+use Yansongda\Artful\Exception\Exception;
 use Yansongda\Artful\Exception\InvalidParamsException;
 use Yansongda\Artful\Exception\ServiceNotFoundException;
 
@@ -33,6 +34,6 @@ class Event
             return;
         }
 
-        throw new InvalidParamsException(Exception\Exception::PARAMS_EVENT_DRIVER_INVALID, '参数异常: 配置的 `EventDispatcherInterface` 不符合 PSR 规范');
+        throw new InvalidParamsException(Exception::PARAMS_EVENT_DRIVER_INVALID, '参数异常: 配置的 `EventDispatcherInterface` 不符合 PSR 规范');
     }
 }
