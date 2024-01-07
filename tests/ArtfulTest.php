@@ -22,6 +22,7 @@ use Yansongda\Artful\Direction\NoHttpRequestDirection;
 use Yansongda\Artful\Exception\ContainerException;
 use Yansongda\Artful\Exception\Exception;
 use Yansongda\Artful\Exception\InvalidParamsException;
+use Yansongda\Artful\Exception\InvalidResponseException;
 use Yansongda\Artful\Exception\ServiceNotFoundException;
 use Yansongda\Artful\Artful;
 use Yansongda\Artful\HttpClientFactory;
@@ -206,7 +207,7 @@ class ArtfulTest extends TestCase
         self::assertEquals($client, $factory->create());
     }
 
-    public function testVerifyObjectPlugin()
+    public function testArtfulVerifyObjectPlugin()
     {
         Artful::config();
 
@@ -217,7 +218,7 @@ class ArtfulTest extends TestCase
         self::assertInstanceOf(ResponseInterface::class, $result);
     }
 
-    public function testVerifyNormalPlugin()
+    public function testArtfulVerifyNormalPlugin()
     {
         Artful::config();
 
@@ -226,6 +227,29 @@ class ArtfulTest extends TestCase
         $result = Artful::artful($plugin, []);
 
         self::assertInstanceOf(ResponseInterface::class, $result);
+    }
+
+    public function testArtfulReturnRocket()
+    {
+        Artful::config();
+
+        $plugin = [FooPlugin::class];
+
+        $result = Artful::artful($plugin, ['_return_rocket' => true]);
+
+        self::assertInstanceOf(Rocket::class, $result);
+    }
+
+    public function testArtfulWrongPlugin()
+    {
+        Artful::config();
+
+        $plugin = [Collection::class];
+
+        self::expectException(InvalidParamsException::class);
+        self::expectExceptionCode(Exception::PARAMS_PLUGIN_INCOMPATIBLE);
+
+        Artful::artful($plugin, []);
     }
 
     public function testIgnite()
@@ -244,6 +268,24 @@ class ArtfulTest extends TestCase
         $result = Artful::ignite($rocket);
 
         self::assertEquals('yansongda/pay', (string) $result->getDestination()->getBody());
+    }
+
+    public function testIgniteWrong()
+    {
+        Artful::config();
+
+        $rocket = new Rocket();
+        $rocket->setRadar(new Request('get', ''));
+
+        $http = Mockery::mock(Client::class);
+        $http->shouldReceive('sendRequest')->andThrow(new \Exception());
+
+        Artful::set(HttpClientInterface::class, $http);
+
+        self::expectException(InvalidResponseException::class);
+        self::expectExceptionCode(Exception::REQUEST_RESPONSE_ERROR);
+
+        Artful::ignite($rocket);
     }
 
     public function testIgnitePreRead()
