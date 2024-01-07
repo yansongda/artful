@@ -2,22 +2,32 @@
 
 namespace Yansongda\Artful\Tests;
 
+use Closure;
 use GuzzleHttp\Client;
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Response;
 use Hyperf\Pimple\ContainerFactory;
+use Mockery;
 use Monolog\Logger;
 use Psr\Container\ContainerInterface;
+use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Yansongda\Artful\Contract\ConfigInterface;
 use Yansongda\Artful\Contract\EventDispatcherInterface;
 use Yansongda\Artful\Contract\HttpClientFactoryInterface;
 use Yansongda\Artful\Contract\HttpClientInterface;
 use Yansongda\Artful\Contract\LoggerInterface;
+use Yansongda\Artful\Contract\PluginInterface;
+use Yansongda\Artful\Direction\NoHttpRequestDirection;
 use Yansongda\Artful\Exception\ContainerException;
 use Yansongda\Artful\Exception\Exception;
+use Yansongda\Artful\Exception\InvalidParamsException;
 use Yansongda\Artful\Exception\ServiceNotFoundException;
 use Yansongda\Artful\Artful;
 use Yansongda\Artful\HttpClientFactory;
 use Yansongda\Artful\Tests\Stubs\FooServiceProviderStub;
+use Yansongda\Artful\Rocket;
+use Yansongda\Supports\Collection;
 use Yansongda\Supports\Config;
 use Yansongda\Supports\Pipeline;
 
@@ -118,6 +128,15 @@ class ArtfulTest extends TestCase
         self::assertNotSame(Artful::make(Pipeline::class), Artful::make(Pipeline::class));
     }
 
+    public function testLoad()
+    {
+        Artful::config(['name' => 'yansongda']);
+
+        Artful::load(FooServiceProviderStub::class, []);
+
+        self::assertEquals('bar', Artful::get('foo'));
+    }
+
     public function testRegisterService()
     {
         Artful::config(['name' => 'yansongda']);
@@ -185,5 +204,91 @@ class ArtfulTest extends TestCase
         Artful::set(HttpClientInterface::class, $client);
 
         self::assertEquals($client, $factory->create());
+    }
+
+    public function testVerifyObjectPlugin()
+    {
+        Artful::config();
+
+        $plugin = [new FooPlugin()];
+
+        $result = Artful::artful($plugin, []);
+
+        self::assertInstanceOf(ResponseInterface::class, $result);
+    }
+
+    public function testVerifyNormalPlugin()
+    {
+        Artful::config();
+
+        $plugin = [FooPlugin::class];
+
+        $result = Artful::artful($plugin, []);
+
+        self::assertInstanceOf(ResponseInterface::class, $result);
+    }
+
+    public function testIgnite()
+    {
+        Artful::config();
+
+        $response = new Response(200, [], 'yansongda/pay');
+        $rocket = new Rocket();
+        $rocket->setRadar(new Request('get', ''));
+
+        $http = Mockery::mock(Client::class);
+        $http->shouldReceive('sendRequest')->andReturn($response);
+
+        Artful::set(HttpClientInterface::class, $http);
+
+        $result = Artful::ignite($rocket);
+
+        self::assertEquals('yansongda/pay', (string) $result->getDestination()->getBody());
+    }
+
+    public function testIgnitePreRead()
+    {
+        Artful::config();
+
+        $response = new Response(200, [], 'yansongda/pay');
+        $response->getBody()->read(1);
+
+        $rocket = new Rocket();
+        $rocket->setRadar(new Request('get', ''));
+
+        $http = Mockery::mock(Client::class);
+        $http->shouldReceive('sendRequest')->andReturn($response);
+
+        Artful::set(HttpClientInterface::class, $http);
+
+        $result = Artful::ignite($rocket);
+
+        self::assertEquals('yansongda/pay', (string) $result->getDestination()->getBody());
+    }
+
+    public function testIgniteWrongHttpClient()
+    {
+        Artful::config();
+
+        $rocket = new Rocket();
+        $rocket->setRadar(new Request('get', ''));
+
+        Artful::set(HttpClientFactoryInterface::class, new Collection());
+
+        self::expectException(InvalidParamsException::class);
+        self::expectExceptionCode(Exception::PARAMS_HTTP_CLIENT_FACTORY_INVALID);
+
+        Artful::ignite($rocket);
+    }
+}
+
+class FooPlugin implements PluginInterface
+{
+    public function assembly(Rocket $rocket, Closure $next): Rocket
+    {
+        $rocket->setDirection(NoHttpRequestDirection::class)
+            ->setDestination(new Response());
+
+        return $next($rocket);
     }
 }

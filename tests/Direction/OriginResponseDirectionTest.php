@@ -2,6 +2,7 @@
 
 namespace Yansongda\Artful\Tests\Direction;
 
+use GuzzleHttp\Psr7\Response;
 use Yansongda\Artful\Exception\Exception;
 use Yansongda\Artful\Exception\InvalidResponseException;
 use Yansongda\Artful\Packer\JsonPacker;
@@ -25,5 +26,14 @@ class OriginResponseDirectionTest extends TestCase
         self::expectExceptionCode(Exception::RESPONSE_EMPTY);
 
         $this->parser->guide(new JsonPacker(), null);
+    }
+
+    public function testNormal()
+    {
+        $response = new Response();
+
+        $result = $this->parser->guide(new JsonPacker(), $response);
+
+        self::assertSame($response, $result);
     }
 }
