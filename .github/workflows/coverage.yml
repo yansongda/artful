@@ -1,0 +1,28 @@
+name: Code Coverage
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  coverage:
+    name: Code Coverage
+    runs-on: 'ubuntu-latest'
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: openssl
+          coverage: xdebug
+      - name: Install Dependencies
+        run: composer require hyperf/pimple
+      - name: Run Coverage
+        run: vendor/bin/phpunit --coverage-clover coverage.xml
+      - name: Upload Coverage
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
