@@ -53,6 +53,11 @@ class Exception extends \Exception
 
     public const RESPONSE_EMPTY = 9303;
 
+    /**
+     * 关于配置.
+     */
+    public const CONFIG_ERROR = 9400;
+
     public mixed $extra;
 
     public function __construct(string $message = '未知异常', int $code = self::UNKNOWN_ERROR, mixed $extra = null, ?Throwable $previous = null)

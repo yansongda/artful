@@ -1,3 +1,9 @@
+## v1.0.3
+
+### added
+
+- feat: 增加 `InvalidConfigException`(!4)
+
 ## v1.0.2
 
 ### changed
