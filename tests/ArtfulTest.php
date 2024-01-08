@@ -148,6 +148,15 @@ class ArtfulTest extends TestCase
         self::assertEquals('bar', Artful::get('foo'));
     }
 
+    public function testRegisterServiceDefaultData()
+    {
+        Artful::config(['name' => 'yansongda']);
+
+        Artful::registerService(FooServiceProviderStub::class);
+
+        self::assertEquals('bar', Artful::get('foo'));
+    }
+
     public function testCoreServiceContainer()
     {
         Artful::config(['name' => 'yansongda']);
