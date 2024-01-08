@@ -1,5 +1,11 @@
 ## v1.0.2
 
+### added
+
+- feat: 增加 `InvalidConfigException`(!4)
+
+## v1.0.2
+
 ### changed
 
 - change: 更改 `Exception` code 码(!3)
