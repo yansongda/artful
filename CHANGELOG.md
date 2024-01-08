@@ -1,3 +1,9 @@
+## v1.0.2
+
+### changed
+
+- change: 更改 `Exception` code 码(!3)
+
 ## v1.0.1
 
 ### added

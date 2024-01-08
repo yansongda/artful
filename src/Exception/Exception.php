@@ -13,45 +13,45 @@ class Exception extends \Exception
     /**
      * 关于容器.
      */
-    public const CONTAINER_ERROR = 1000;
+    public const CONTAINER_ERROR = 9100;
 
-    public const CONTAINER_NOT_FOUND = 1001;
+    public const CONTAINER_NOT_FOUND = 9101;
 
-    public const CONTAINER_SERVICE_NOT_FOUND = 1002;
+    public const CONTAINER_SERVICE_NOT_FOUND = 9102;
 
     /**
      * 关于参数.
      */
-    public const PARAMS_ERROR = 2000;
+    public const PARAMS_ERROR = 9200;
 
-    public const PARAMS_DIRECTION_INVALID = 2001;
+    public const PARAMS_DIRECTION_INVALID = 9201;
 
-    public const PARAMS_PACKER_INVALID = 2002;
+    public const PARAMS_PACKER_INVALID = 9202;
 
-    public const PARAMS_EVENT_DRIVER_INVALID = 2003;
+    public const PARAMS_EVENT_DRIVER_INVALID = 9203;
 
-    public const PARAMS_HTTP_CLIENT_INVALID = 2004;
+    public const PARAMS_HTTP_CLIENT_INVALID = 9204;
 
-    public const PARAMS_LOGGER_DRIVER_INVALID = 2005;
+    public const PARAMS_LOGGER_DRIVER_INVALID = 9205;
 
-    public const PARAMS_HTTP_CLIENT_FACTORY_INVALID = 2006;
+    public const PARAMS_HTTP_CLIENT_FACTORY_INVALID = 9206;
 
-    public const PARAMS_PLUGIN_INCOMPATIBLE = 2007;
+    public const PARAMS_PLUGIN_INCOMPATIBLE = 9207;
 
-    public const PARAMS_PARSER_DIRECTION_INVALID = 2008;
+    public const PARAMS_PARSER_DIRECTION_INVALID = 9208;
 
-    public const PARAMS_SHORTCUT_INVALID = 2009;
+    public const PARAMS_SHORTCUT_INVALID = 9209;
 
     /**
      * 关于响应.
      */
-    public const RESPONSE_ERROR = 3000;
+    public const RESPONSE_ERROR = 9300;
 
-    public const REQUEST_RESPONSE_ERROR = 3001;
+    public const REQUEST_RESPONSE_ERROR = 9301;
 
-    public const RESPONSE_UNPACK_ERROR = 3002;
+    public const RESPONSE_UNPACK_ERROR = 9302;
 
-    public const RESPONSE_EMPTY = 3003;
+    public const RESPONSE_EMPTY = 9303;
 
     public mixed $extra;
 
