@@ -16,6 +16,7 @@ use Yansongda\Artful\Contract\HttpClientFactoryInterface;
 use Yansongda\Artful\Contract\PackerInterface;
 use Yansongda\Artful\Contract\PluginInterface;
 use Yansongda\Artful\Contract\ServiceProviderInterface;
+use Yansongda\Artful\Contract\ShortcutInterface;
 use Yansongda\Artful\Direction\CollectionDirection;
 use Yansongda\Artful\Exception\ContainerException;
 use Yansongda\Artful\Exception\ContainerNotFoundException;
@@ -221,6 +222,23 @@ class Artful
     /**
      * @throws ContainerException
      * @throws InvalidParamsException
+     * @throws ServiceNotFoundException
+     */
+    public static function shortcut(string $shortcut, array $params = []): null|Collection|MessageInterface|Rocket
+    {
+        if (!class_exists($shortcut) || !in_array(ShortcutInterface::class, class_implements($shortcut))) {
+            throw new InvalidParamsException(Exception::PARAMS_SHORTCUT_INVALID, "参数异常: [{$shortcut}] 未实现 `ShortcutInterface`");
+        }
+
+        /* @var ShortcutInterface $shortcutInstance */
+        $shortcutInstance = self::get($shortcut);
+
+        return self::artful($shortcutInstance->getPlugins($params), $params);
+    }
+
+    /**
+     * @throws ContainerException
+     * @throws InvalidParamsException
      */
     public static function artful(array $plugins, array $params): null|Collection|MessageInterface|Rocket
     {
@@ -265,7 +283,7 @@ class Artful
         $config = self::get(ConfigInterface::class);
 
         if (!$httpFactory instanceof HttpClientFactoryInterface) {
-            throw new InvalidParamsException(Exception::PARAMS_HTTP_CLIENT_FACTORY_INVALID, '参数异常: 配置的 HttpClientFactoryInterface 不符合规范');
+            throw new InvalidParamsException(Exception::PARAMS_HTTP_CLIENT_FACTORY_INVALID, '参数异常: 配置的 `HttpClientFactoryInterface` 不符合规范');
         }
 
         Logger::info('[Artful] 准备请求第三方 API', $rocket->toArray());
