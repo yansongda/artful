@@ -1,3 +1,9 @@
+## v1.0.4
+
+### added
+
+- feat: 增加 `registerService()` 第二个参数默认值为 `null`(!5)
+
 ## v1.0.3
 
 ### added
