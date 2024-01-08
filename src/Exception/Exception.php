@@ -40,6 +40,8 @@ class Exception extends \Exception
 
     public const PARAMS_PARSER_DIRECTION_INVALID = 2008;
 
+    public const PARAMS_SHORTCUT_INVALID = 2009;
+
     /**
      * 关于响应.
      */

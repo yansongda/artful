@@ -34,7 +34,7 @@ function get_direction(mixed $direction): DirectionInterface
     }
 
     if (!$direction instanceof DirectionInterface) {
-        throw new InvalidParamsException(Exception::PARAMS_DIRECTION_INVALID, '参数异常: 配置的 DirectionInterface 未实现 `DirectionInterface`');
+        throw new InvalidParamsException(Exception::PARAMS_DIRECTION_INVALID, '参数异常: 配置的 `DirectionInterface` 未实现 `DirectionInterface`');
     }
 
     return $direction;

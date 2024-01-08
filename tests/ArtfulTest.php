@@ -18,6 +18,7 @@ use Yansongda\Artful\Contract\HttpClientFactoryInterface;
 use Yansongda\Artful\Contract\HttpClientInterface;
 use Yansongda\Artful\Contract\LoggerInterface;
 use Yansongda\Artful\Contract\PluginInterface;
+use Yansongda\Artful\Contract\ShortcutInterface;
 use Yansongda\Artful\Direction\NoHttpRequestDirection;
 use Yansongda\Artful\Exception\ContainerException;
 use Yansongda\Artful\Exception\Exception;
@@ -207,6 +208,35 @@ class ArtfulTest extends TestCase
         self::assertEquals($client, $factory->create());
     }
 
+    public function testShortcut()
+    {
+        Artful::config();
+
+        $result = Artful::shortcut(FooShortcut::class);
+
+        self::assertInstanceOf(ResponseInterface::class, $result);
+    }
+
+    public function testShortcutNotExist()
+    {
+        Artful::config();
+
+        self::expectException(InvalidParamsException::class);
+        self::expectExceptionCode(Exception::PARAMS_SHORTCUT_INVALID);
+
+        Artful::shortcut(S::class);
+    }
+
+    public function testShortcutInvalid()
+    {
+        Artful::config();
+
+        self::expectException(InvalidParamsException::class);
+        self::expectExceptionCode(Exception::PARAMS_SHORTCUT_INVALID);
+
+        Artful::shortcut(Collection::class);
+    }
+
     public function testArtfulVerifyObjectPlugin()
     {
         Artful::config();
@@ -332,5 +362,13 @@ class FooPlugin implements PluginInterface
             ->setDestination(new Response());
 
         return $next($rocket);
+    }
+}
+
+class FooShortcut implements ShortcutInterface
+{
+    public function getPlugins(array $params): array
+    {
+        return [FooPlugin::class];
     }
 }
