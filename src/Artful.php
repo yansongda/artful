@@ -210,7 +210,7 @@ class Artful
     /**
      * @throws ContainerException
      */
-    public static function registerService(string $service, mixed $data): void
+    public static function registerService(string $service, mixed $data = null): void
     {
         $var = new $service();
 
