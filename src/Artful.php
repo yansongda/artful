@@ -202,7 +202,7 @@ class Artful
     /**
      * @throws ContainerException
      */
-    public static function load(string $service, mixed $data): void
+    public static function load(string $service, mixed $data = null): void
     {
         self::registerService($service, $data);
     }
