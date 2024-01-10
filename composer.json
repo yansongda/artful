@@ -23,7 +23,7 @@
         "psr/http-client": "^1.0",
         "psr/http-message": "^1.1 || ^2.0",
         "yansongda/supports": "~4.0.9",
-        "guzzlehttp/guzzle": "^7.0"
+        "guzzlehttp/psr7": "^2.6"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.0",
@@ -35,7 +35,8 @@
         "symfony/http-foundation": "^5.2.0",
         "symfony/event-dispatcher": "^5.2.0",
         "symfony/psr-http-message-bridge": "^2.1",
-        "hyperf/pimple": "^2.2"
+        "hyperf/pimple": "^2.2",
+        "guzzlehttp/guzzle": "^7.0"
     },
     "autoload": {
         "psr-4": {
@@ -51,9 +52,8 @@
         }
     },
     "suggest": {
-        "illuminate/container": "Laravel 框架下使用 SDK，请安装",
-        "hyperf/utils": "Hyperf 框架下使用 SDK，请安装",
-        "hyperf/pimple": "其它/无框架下使用 SDK，请安装"
+        "illuminate/container": "其它/无框架下使用 SDK，请安装，任选其一",
+        "hyperf/pimple": "其它/无框架下使用 SDK，请安装，任选其一"
     },
     "scripts": {
         "test": "./vendor/bin/phpunit -c phpunit.xml --colors=always",

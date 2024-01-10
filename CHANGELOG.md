@@ -1,3 +1,9 @@
+## v1.0.6
+
+### chore
+
+- chore: 依赖由 `guzzlehttp/guzzle` 改为 `guzzlehttp/psr7`(!7)
+
 ## v1.0.5
 
 ### added
