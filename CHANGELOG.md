@@ -2,7 +2,7 @@
 
 ### chore
 
-- chore: 依赖由 `guzzlehttp/clinet` 改为 `guzzlehttp/psr7`(!7)
+- chore: 依赖由 `guzzlehttp/guzzle` 改为 `guzzlehttp/psr7`(!7)
 
 ## v1.0.5
 
