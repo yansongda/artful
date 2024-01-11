@@ -2,46 +2,46 @@
 
 ### added
 
-- feat: `unpack` 支持参数(!8)
+- feat: `unpack` 支持参数(#8, #9)
 
 ## v1.0.6
 
 ### chore
 
-- chore: 依赖由 `guzzlehttp/guzzle` 改为 `guzzlehttp/psr7`(!7)
+- chore: 依赖由 `guzzlehttp/guzzle` 改为 `guzzlehttp/psr7`(#7)
 
 ## v1.0.5
 
 ### added
 
-- feat: 增加 `load()` 第二个参数默认值为 `null`(!6)
+- feat: 增加 `load()` 第二个参数默认值为 `null`(#6)
 
 ## v1.0.4
 
 ### added
 
-- feat: 增加 `registerService()` 第二个参数默认值为 `null`(!5)
+- feat: 增加 `registerService()` 第二个参数默认值为 `null`(#5)
 
 ## v1.0.3
 
 ### added
 
-- feat: 增加 `InvalidConfigException`(!4)
+- feat: 增加 `InvalidConfigException`(#4)
 
 ## v1.0.2
 
 ### changed
 
-- change: 更改 `Exception` code 码(!3)
+- change: 更改 `Exception` code 码(#3)
 
 ## v1.0.1
 
 ### added
 
-- feat: 增加 `shortcut` 快捷方式(!2)
+- feat: 增加 `shortcut` 快捷方式(#2)
 
 ## v1.0.0
 
 ### init
 
-- init: 首个版本(!1)
+- init: 首个版本(#1)
