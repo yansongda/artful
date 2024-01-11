@@ -15,7 +15,7 @@ class OriginResponseDirection implements DirectionInterface
     /**
      * @throws InvalidResponseException
      */
-    public function guide(PackerInterface $packer, ?ResponseInterface $response): ?ResponseInterface
+    public function guide(PackerInterface $packer, ?ResponseInterface $response, array $params = []): ?ResponseInterface
     {
         if (is_null($response)) {
             throw new InvalidResponseException(Exception::RESPONSE_EMPTY, '响应异常: 响应为空，不能进行 direction');
