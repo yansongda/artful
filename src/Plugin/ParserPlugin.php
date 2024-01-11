@@ -30,13 +30,13 @@ class ParserPlugin implements PluginInterface
         $response = $rocket->getDestination();
         $direction = get_direction($rocket->getDirection());
         $packer = get_packer($rocket->getPacker());
-        $params = $rocket->getParams();
+        $payload = $rocket->getPayload();
 
         if (!is_null($response) && !($response instanceof ResponseInterface)) {
             throw new InvalidParamsException(Exception::PARAMS_PARSER_DIRECTION_INVALID, '参数异常: 解析插件中 `Rocket` 的 `destination` 只能是 `null` 或者 `ResponseInterface`');
         }
 
-        $rocket->setDestination($direction->guide($packer, $response, $params));
+        $rocket->setDestination($direction->guide($packer, $response, $payload?->all() ?? []));
 
         Logger::debug('[ParserPlugin] 插件装载完毕', ['rocket' => $rocket]);
 
