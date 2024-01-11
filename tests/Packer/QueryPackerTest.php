@@ -39,7 +39,7 @@ class QueryPackerTest extends TestCase
         $array = ['name' => 'yan+song+da', 'age' => '29'];
         $str = 'name=yan+song+da&age=29';
 
-        self::assertEquals($array, $this->packer->unpack($str, ['_raw' => 1]));
+        self::assertEquals($array, $this->packer->unpack($str, ['_unpack_raw' => 1]));
     }
 
     public function testUnpackRaw()
