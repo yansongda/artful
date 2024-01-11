@@ -16,7 +16,7 @@ class CollectionDirection implements DirectionInterface
     /**
      * @throws InvalidResponseException
      */
-    public function guide(PackerInterface $packer, ?ResponseInterface $response): Collection
+    public function guide(PackerInterface $packer, ?ResponseInterface $response, array $params = []): Collection
     {
         if (is_null($response)) {
             throw new InvalidResponseException(Exception::RESPONSE_EMPTY, '响应异常: 响应为空，不能进行 direction');
@@ -24,7 +24,7 @@ class CollectionDirection implements DirectionInterface
 
         $body = (string) $response->getBody();
 
-        if (!is_null($result = $packer->unpack($body))) {
+        if (!is_null($result = $packer->unpack($body, $params))) {
             return new Collection($result);
         }
 

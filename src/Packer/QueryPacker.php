@@ -17,6 +17,6 @@ class QueryPacker implements PackerInterface
 
     public function unpack(string $payload, ?array $params = null): array
     {
-        return Arr::wrapQuery($payload, !empty($params['_raw']));
+        return Arr::wrapQuery($payload, !empty($params['_unpack_raw']));
     }
 }

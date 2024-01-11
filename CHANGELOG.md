@@ -1,3 +1,9 @@
+## v1.0.7
+
+### added
+
+- feat: `unpack` 支持参数(!8)
+
 ## v1.0.6
 
 ### chore

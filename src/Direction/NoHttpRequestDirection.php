@@ -10,7 +10,7 @@ use Yansongda\Artful\Contract\PackerInterface;
 
 class NoHttpRequestDirection implements DirectionInterface
 {
-    public function guide(PackerInterface $packer, ?ResponseInterface $response): ?ResponseInterface
+    public function guide(PackerInterface $packer, ?ResponseInterface $response, array $params = []): ?ResponseInterface
     {
         return $response;
     }
