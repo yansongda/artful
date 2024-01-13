@@ -1,3 +1,10 @@
+## v1.0.8
+
+### added
+
+- feat: `get_radar_body` 返回值由 `?string` 改为 `mixed`(#10)
+- feat: 增加 `StartPlugin` 插件(#10)
+
 ## v1.0.7
 
 ### added
