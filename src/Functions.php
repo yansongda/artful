@@ -82,7 +82,7 @@ function get_radar_url(?Collection $payload): ?string
     return $payload?->get('_url') ?? null;
 }
 
-function get_radar_body(?Collection $payload): ?string
+function get_radar_body(?Collection $payload): mixed
 {
     return $payload?->get('_body') ?? null;
 }
