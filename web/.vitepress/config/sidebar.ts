@@ -39,4 +39,11 @@ export default [
       { text: '日志', link: '/docs/v1/others/logger' },
     ]
   },
+  {
+    text: '附录',
+    collapsed: false,
+    items: [
+      { text: '事件', link: '/docs/v1/appendix/special-params' },
+    ]
+  },
 ] as DefaultTheme.Sidebar

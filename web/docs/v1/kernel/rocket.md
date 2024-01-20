@@ -29,7 +29,7 @@
 
 Pay 项目中，将所有以 _下划线_ 开始的参数都定义为 `特殊参数`，在最终请求时，**一定不会带入请求体中**。
 
-当前内置特殊参数请见：[特殊参数](/v1/appendix/special-params)
+当前内置特殊参数请见：[特殊参数](/docs/v1/appendix/special-params)
 
 ## ⚙️ Payload
 
