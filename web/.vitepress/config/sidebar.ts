@@ -43,7 +43,7 @@ export default [
     text: '附录',
     collapsed: false,
     items: [
-      { text: '事件', link: '/docs/v1/appendix/special-params' },
+      { text: '内置特殊参数', link: '/docs/v1/appendix/special-params' },
     ]
   },
 ] as DefaultTheme.Sidebar
