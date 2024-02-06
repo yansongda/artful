@@ -1,3 +1,9 @@
+## v1.0.9
+
+### fixed
+
+- fix: 修复 `JsonPacker` 为空时 `packer` 错误的问题(#11)
+
 ## v1.0.8
 
 ### added
