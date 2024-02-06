@@ -12,7 +12,7 @@ class JsonPacker implements PackerInterface
 {
     public function pack(null|array|Collection $payload, ?array $params = null): string
     {
-        if (empty($payload)) {
+        if (($payload instanceof Collection && $payload->isEmpty()) || empty($payload)) {
             return '';
         }
 

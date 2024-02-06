@@ -36,9 +36,9 @@ class JsonPackerTest extends TestCase
 
     public function testPackEmpty()
     {
-        $array = [];
         $str = '';
 
-        self::assertEquals($str, $this->packer->pack($array));
+        self::assertEquals($str, $this->packer->pack([]));
+        self::assertEquals($str, $this->packer->pack(new Collection()));
     }
 }
