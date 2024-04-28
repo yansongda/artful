@@ -1,3 +1,9 @@
+## v1.1.0
+
+### changed
+
+- change: http 配置项由 `httpFactory` 修改为 `http`(#17)
+
 ## v1.0.9
 
 ### fixed

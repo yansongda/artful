@@ -52,7 +52,7 @@ class Artful
     /**
      * @throws ContainerException
      */
-    private function __construct(array $config, Closure|ContainerInterface $container = null)
+    private function __construct(array $config, null|Closure|ContainerInterface $container = null)
     {
         $this->registerServices($config, $container);
 
@@ -78,7 +78,7 @@ class Artful
     /**
      * @throws ContainerException
      */
-    public static function config(array $config = [], Closure|ContainerInterface $container = null): bool
+    public static function config(array $config = [], null|Closure|ContainerInterface $container = null): bool
     {
         if (self::hasContainer() && !($config['_force'] ?? false)) {
             return false;
@@ -288,7 +288,7 @@ class Artful
 
         Logger::info('[Artful] 准备请求第三方 API', $rocket->toArray());
 
-        $http = $httpFactory->create(array_merge($config->get('httpFactory', []), $rocket->getPayload()?->get('_http') ?? []));
+        $http = $httpFactory->create(array_merge($config->get('http', []), $rocket->getPayload()?->get('_http') ?? []));
 
         Event::dispatch(new Event\HttpStart($rocket));
 
@@ -333,7 +333,7 @@ class Artful
     /**
      * @throws ContainerException
      */
-    private function registerServices(array $config, Closure|ContainerInterface $container = null): void
+    private function registerServices(array $config, null|Closure|ContainerInterface $container = null): void
     {
         foreach ($this->coreService as $service) {
             self::registerService($service, ContainerServiceProvider::class == $service ? $container : $config);
