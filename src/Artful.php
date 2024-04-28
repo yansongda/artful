@@ -288,7 +288,7 @@ class Artful
 
         Logger::info('[Artful] 准备请求第三方 API', $rocket->toArray());
 
-        $http = $httpFactory->create(array_merge($config->get('httpFactory', []), $rocket->getPayload()?->get('_http') ?? []));
+        $http = $httpFactory->create(array_merge($config->get('http', []), $rocket->getPayload()?->get('_http') ?? []));
 
         Event::dispatch(new Event\HttpStart($rocket));
 

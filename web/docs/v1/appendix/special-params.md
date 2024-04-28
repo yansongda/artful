@@ -23,3 +23,7 @@
 指定请求体。
 
 将在组装 `Radar` 请求时使用，具体可参考：`\Yansongda\Artful\Plugin\AddRadarPlugin`。
+
+## `_http`
+
+http 客户端的配置文件，将在 httpFactory 创建 http 客户端时使用
