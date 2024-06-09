@@ -1,3 +1,9 @@
+## v1.1.1
+
+### chore
+
+- chore: 升级 `yansongda/supports` 版本以解决潜在的问题(#18)
+
 ## v1.1.0
 
 ### changed
