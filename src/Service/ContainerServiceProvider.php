@@ -8,6 +8,7 @@ use Closure;
 use Hyperf\Context\ApplicationContext as HyperfContainer;
 use Hyperf\Pimple\ContainerFactory as DefaultContainer;
 use Illuminate\Container\Container as LaravelContainer;
+use think\Container as ThinkPHPApplication;
 use Psr\Container\ContainerInterface;
 use Yansongda\Artful\Artful;
 use Yansongda\Artful\Contract\ServiceProviderInterface;
@@ -23,6 +24,7 @@ class ContainerServiceProvider implements ServiceProviderInterface
     private array $detectApplication = [
         'laravel' => LaravelContainer::class,
         'hyperf' => HyperfContainer::class,
+        'thinkphp' => ThinkPHPApplication::class,
     ];
 
     /**
@@ -84,6 +86,23 @@ class ContainerServiceProvider implements ServiceProviderInterface
 
         if (!Artful::has(ContainerInterface::class)) {
             Artful::set(ContainerInterface::class, HyperfContainer::getContainer());
+        }
+
+        return true;
+    }
+
+    /**
+     * @throws ContainerException
+     * @throws ContainerNotFoundException
+     */
+    protected function thinkphpApplication()
+    {
+        Artful::setContainer(static fn() => ThinkPHPApplication::getInstance());
+
+        Artful::set(\Yansongda\Artful\Contract\ContainerInterface::class, ThinkPHPApplication::getInstance());
+
+        if (!Artful::has(ContainerInterface::class)) {
+            Artful::set(ContainerInterface::class, ThinkPHPApplication::getInstance());
         }
 
         return true;
