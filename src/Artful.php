@@ -107,6 +107,7 @@ class Artful
             }
 
             if ($container instanceof ThinkPHPContainer) {
+                $container->delete($name);
                 $container->bind($name, $value instanceof Closure ? $value : function () use ($value) {
                     return $value;
                 });
