@@ -6,6 +6,7 @@ namespace Yansongda\Artful;
 
 use Closure;
 use Illuminate\Container\Container as LaravelContainer;
+use think\Container as ThinkPHPContainer;
 use Psr\Container\ContainerInterface;
 use Psr\Container\NotFoundExceptionInterface;
 use Psr\Http\Message\MessageInterface;
@@ -105,6 +106,14 @@ class Artful
                 return;
             }
 
+            if ($container instanceof ThinkPHPContainer) {
+                $container->bind($name, $value instanceof Closure ? $value : function () use ($value) {
+                    return $value;
+                });
+
+                return;
+            }
+
             if (method_exists($container, 'set')) {
                 $container->set(...func_get_args());
 
@@ -150,7 +159,13 @@ class Artful
     public static function get(string $service): mixed
     {
         try {
-            return Artful::getContainer()->get($service);
+            $container = Artful::getContainer();
+            
+            if ($container instanceof ThinkPHPContainer) {
+                return $container->make($service);
+            } else {
+                return $container->get($service);
+            }
         } catch (NotFoundExceptionInterface $e) {
             throw new ServiceNotFoundException('服务未找到: '.$e->getMessage());
         } catch (ContainerNotFoundException $e) {
