@@ -24,6 +24,9 @@ class AddRadarPluginTest extends TestCase
         $payload = new Collection([
             '_url' => 'https://pay.yansongda.cn',
             '_body' => '123',
+            '_headers' => [
+                'name' => 'yansongda',
+            ]
         ]);
 
         $rocket = (new Rocket())->setParams($params)->setPayload($payload);
@@ -34,5 +37,6 @@ class AddRadarPluginTest extends TestCase
         self::assertEquals('123', (string) $radar->getBody());
         self::assertEquals('POST', $radar->getMethod());
         self::assertEquals('https://pay.yansongda.cn', (string) $radar->getUri());
+        self::assertEquals('yansongda', $radar->getHeaderLine('name'));
     }
 }
