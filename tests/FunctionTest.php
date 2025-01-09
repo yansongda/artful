@@ -18,6 +18,7 @@ use function Yansongda\Artful\filter_params;
 use function Yansongda\Artful\get_direction;
 use function Yansongda\Artful\get_packer;
 use function Yansongda\Artful\get_radar_body;
+use function Yansongda\Artful\get_radar_headers;
 use function Yansongda\Artful\get_radar_method;
 use function Yansongda\Artful\get_radar_url;
 use function Yansongda\Artful\should_do_http_request;
@@ -111,5 +112,13 @@ class FunctionTest extends TestCase
         self::assertNull(get_radar_body(null));
 
         self::assertEquals('https://yansongda.cn', get_radar_body(new Collection(['_body' => 'https://yansongda.cn'])));
+    }
+
+    public function testGetRadarHeaders()
+    {
+        self::assertNull(get_radar_headers(new Collection([])));
+        self::assertNull(get_radar_headers(null));
+
+        self::assertEquals(['foo' => 'bar'], get_radar_headers(new Collection(['_headers' => ['foo' => 'bar']])));
     }
 }
