@@ -1,3 +1,9 @@
+## v1.1.2
+
+### added
+
+- feat: EventInterface 增加更多常用方法(#28)
+
 ## v1.1.1
 
 ### chore
