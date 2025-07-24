@@ -12,6 +12,7 @@ use Yansongda\Artful\Exception\ServiceNotFoundException;
 
 /**
  * @method static Event\Event dispatch(object $event)
+ * @method static void        addListener(string $eventName, callable $listener, int $priority = 0)
  */
 class Event
 {

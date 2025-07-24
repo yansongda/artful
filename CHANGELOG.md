@@ -2,7 +2,7 @@
 
 ### added
 
-- feat: EventInterface 增加更多常用方法(#28)
+- feat: EventInterface 增加更多常用方法(#28, #29)
 
 ## v1.1.2
 
