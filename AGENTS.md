@@ -52,5 +52,5 @@ src/
 - `guzzlehttp/psr7: ^2.6 || ^3.0`（PSR-7 实现，兼容 guzzle 7.x/8.x）
 - `psr/http-client: ^1.0`、`psr/http-message: ^1.1 || ^2.0`
 - `psr/container: ^1.1 || ^2.0`、`psr/event-dispatcher: ^1.0`、`psr/log: ^1.1 || ^2.0 || ^3.0`
-- `yansongda/supports: ~4.0.10`
-- PHP `>=8.0`；CI 矩阵：PHP 8.1-8.3 + Laravel/Hyperf/Default
+- `yansongda/supports: ~4.1.0`
+- PHP `>=8.2`；CI 矩阵：PHP 8.2-8.5 + Laravel/Hyperf/Default
