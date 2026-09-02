@@ -1,10 +1,14 @@
-## v1.2.0
+## [v1.2.0] - 2026-09-02
 
-### changed
+### Added
 
-- change: 最低 PHP 版本提升至 8.2，CI 矩阵同步支持 8.4/8.5
-- change: 升级 `yansongda/supports` 至 `~4.1.0`
-- change: 开发依赖全量升级（`phpunit ^11.5`、`mockery ^1.6`、`php-cs-fixer ^3.95`、`phpstan ^2.2`、`monolog ^3.11`、`symfony ^7.4`、`guzzle ^8.1` 等）
+- 引入 `releasing-php-package` 发布流程 skill (#40)
+
+### Changed
+
+- 最低 PHP 版本提升至 8.2，CI 矩阵同步支持 8.4/8.5 (#39)
+- 升级 `yansongda/supports` 至 `~4.1.0` (#39)
+- 开发依赖全量升级：`phpunit ^11.5`、`mockery ^1.6`、`php-cs-fixer ^3.95`、`phpstan ^2.2`、`monolog ^3.11`、`symfony ^7.4`、`guzzle ^8.1` 等 (#39)
 
 ## v1.1.3
 
