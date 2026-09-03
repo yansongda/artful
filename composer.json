@@ -35,7 +35,6 @@
         "symfony/http-foundation": "^7.4",
         "symfony/event-dispatcher": "^7.4",
         "symfony/psr-http-message-bridge": "^7.4",
-        "hyperf/pimple": "^2.2",
         "guzzlehttp/guzzle": "^8.1"
     },
     "autoload": {
