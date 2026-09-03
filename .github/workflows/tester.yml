@@ -22,6 +22,8 @@ jobs:
           - 8.3
           - 8.4
           - 8.5
+    env:
+      FRAMEWORK: ${{ matrix.framework }}
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4

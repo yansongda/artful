@@ -5,3 +5,5 @@ parameters:
         - '#.* Illuminate\\Container\\Container.*#'
         - '#.* Hyperf\\Utils\\ApplicationContext.*#'
         - '#.* think\\Container.*#'
+        - '#.* Hyperf\\Pimple\\ContainerFactory.*#'
+        - '#.* Hyperf\\Context\\ApplicationContext.*#'

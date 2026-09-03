@@ -17,7 +17,7 @@ composer cs-fix && composer analyse && composer test
 ```bash
 composer test       # PHPUnit 9.x + Mockery 1.6
 ```
-- 测试前需安装 `hyperf/pimple`（default 框架，`require-dev` 已包含）
+- 测试前需安装 `hyperf/pimple`（default 框架兜底容器）：本地开发执行 `composer require hyperf/pimple --dev`，注意该命令会修改 composer.json，提交时勿包含此改动（CI 各矩阵已显式安装，无需提交）
 - Mock HTTP 客户端避免真实请求
 
 ### 代码风格
