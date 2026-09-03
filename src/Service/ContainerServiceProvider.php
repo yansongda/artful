@@ -9,6 +9,7 @@ use Hyperf\Context\ApplicationContext as HyperfContainer;
 use Hyperf\Pimple\ContainerFactory as DefaultContainer;
 use Illuminate\Container\Container as LaravelContainer;
 use Psr\Container\ContainerInterface;
+use think\Container as ThinkPHPContainer;
 use Yansongda\Artful\Artful;
 use Yansongda\Artful\Contract\ServiceProviderInterface;
 use Yansongda\Artful\Exception\ContainerException;
@@ -23,6 +24,7 @@ class ContainerServiceProvider implements ServiceProviderInterface
     private array $detectApplication = [
         'laravel' => LaravelContainer::class,
         'hyperf' => HyperfContainer::class,
+        'thinkphp' => ThinkPHPContainer::class,
     ];
 
     /**
@@ -84,6 +86,25 @@ class ContainerServiceProvider implements ServiceProviderInterface
 
         if (!Artful::has(ContainerInterface::class)) {
             Artful::set(ContainerInterface::class, HyperfContainer::getContainer());
+        }
+
+        return true;
+    }
+
+    /**
+     * @throws ContainerException
+     * @throws ContainerNotFoundException
+     */
+    protected function thinkphpApplication(): bool
+    {
+        Artful::setContainer(static fn () => ThinkPHPContainer::getInstance());
+
+        Artful::set(\Yansongda\Artful\Contract\ContainerInterface::class, ThinkPHPContainer::getInstance());
+
+        if (!Artful::has(ContainerInterface::class)) {
+            // Pipeline 等组件会直接通过 PSR-11 的 get() 解析插件类，
+            // 而 think\Container::get() 不支持自动解析，这里用适配器做兜底
+            Artful::set(ContainerInterface::class, new ThinkPHPContainerAdapter(ThinkPHPContainer::getInstance()));
         }
 
         return true;

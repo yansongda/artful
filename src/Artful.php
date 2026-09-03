@@ -9,6 +9,7 @@ use Illuminate\Container\Container as LaravelContainer;
 use Psr\Container\ContainerInterface;
 use Psr\Container\NotFoundExceptionInterface;
 use Psr\Http\Message\MessageInterface;
+use think\Container as ThinkPHPContainer;
 use Throwable;
 use Yansongda\Artful\Contract\ConfigInterface;
 use Yansongda\Artful\Contract\DirectionInterface;
@@ -109,6 +110,13 @@ class Artful
                 return;
             }
 
+            if ($container instanceof ThinkPHPContainer) {
+                $container->delete($name);
+                $container->bind($name, $value instanceof Closure ? $value : static fn () => $value);
+
+                return;
+            }
+
             if (method_exists($container, 'set')) {
                 $container->set(...func_get_args());
 
@@ -132,6 +140,11 @@ class Artful
     {
         try {
             $container = Artful::getContainer();
+
+            if ($container instanceof ThinkPHPContainer) {
+                // think 的 make() 默认会缓存实例（单例语义），Artful::make() 期望每次新建
+                return $container->make($service, $parameters, true);
+            }
 
             if (method_exists($container, 'make')) {
                 return $container->make(...func_get_args());
@@ -160,7 +173,13 @@ class Artful
     public static function get(string $service): mixed
     {
         try {
-            return Artful::getContainer()->get($service);
+            $container = Artful::getContainer();
+
+            if ($container instanceof ThinkPHPContainer) {
+                return $container->make($service);
+            }
+
+            return $container->get($service);
         } catch (NotFoundExceptionInterface $e) {
             throw new ServiceNotFoundException('服务未找到: '.$e->getMessage());
         } catch (ContainerNotFoundException $e) {
