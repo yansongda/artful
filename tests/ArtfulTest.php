@@ -6,7 +6,6 @@ use Closure;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
-use Hyperf\Pimple\ContainerFactory;
 use Mockery;
 use Monolog\Logger;
 use Psr\Container\ContainerInterface;
@@ -27,6 +26,7 @@ use Yansongda\Artful\Exception\InvalidResponseException;
 use Yansongda\Artful\Exception\ServiceNotFoundException;
 use Yansongda\Artful\Artful;
 use Yansongda\Artful\HttpClientFactory;
+use Yansongda\Artful\Tests\Stubs\ContainerStub;
 use Yansongda\Artful\Tests\Stubs\FooServiceProviderStub;
 use Yansongda\Artful\Rocket;
 use Yansongda\Supports\Collection;
@@ -64,31 +64,29 @@ class ArtfulTest extends TestCase
         self::assertEquals('yansongda1', Artful::get(ConfigInterface::class)->get('name'));
 
         // 直接使用 config 去设置 container
-        if (class_exists(ContainerFactory::class)) {
-            // container - closure
-            Artful::clear();
-            $container2 = (new ContainerFactory())();
-            $result2 = Artful::config(['name' => 'yansongda2'], function () use ($container2) {
-                return $container2;
-            });
-            self::assertTrue($result2);
-            self::assertSame($container2, Artful::getContainer());
+        // container - closure
+        Artful::clear();
+        $container2 = new ContainerStub();
+        $result2 = Artful::config(['name' => 'yansongda2'], function () use ($container2) {
+            return $container2;
+        });
+        self::assertTrue($result2);
+        self::assertSame($container2, Artful::getContainer());
 
-            // container - object
-            Artful::clear();
-            $container3 = (new ContainerFactory())();
-            $result3 = Artful::config(['name' => 'yansongda2'], $container3);
-            self::assertTrue($result3);
-            self::assertSame($container3, Artful::getContainer());
+        // container - object
+        Artful::clear();
+        $container3 = new ContainerStub();
+        $result3 = Artful::config(['name' => 'yansongda2'], $container3);
+        self::assertTrue($result3);
+        self::assertSame($container3, Artful::getContainer());
 
-            // container - object force
-            Artful::clear();
-            $container4 = (new ContainerFactory())();
-            Artful::setContainer($container4);
-            $result4 = Artful::config(['name' => 'yansongda2', '_force' => true]);
-            self::assertTrue($result4);
-            self::assertSame($container4, Artful::getContainer());
-        }
+        // container - object force
+        Artful::clear();
+        $container4 = new ContainerStub();
+        Artful::setContainer($container4);
+        $result4 = Artful::config(['name' => 'yansongda2', '_force' => true]);
+        self::assertTrue($result4);
+        self::assertSame($container4, Artful::getContainer());
     }
 
     public function testSetAndGet()
