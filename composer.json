@@ -52,7 +52,8 @@
     },
     "suggest": {
         "illuminate/container": "其它/无框架下使用 SDK，请安装，任选其一",
-        "hyperf/pimple": "其它/无框架下使用 SDK，请安装，任选其一"
+        "hyperf/pimple": "其它/无框架下使用 SDK，请安装，任选其一",
+        "topthink/think-container": "ThinkPHP 框架下使用 SDK 时安装（随 topthink/framework 自动携带）"
     },
     "scripts": {
         "test": "./vendor/bin/phpunit -c phpunit.xml --colors=always",

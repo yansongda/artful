@@ -17,6 +17,7 @@ jobs:
           - default
           - laravel
           - hyperf
+          - thinkphp
         php-version:
           - 8.2
           - 8.3
@@ -39,6 +40,9 @@ jobs:
       - name: Hyperf Framework
         if: matrix.framework == 'hyperf'
         run: composer require hyperf/context hyperf/pimple
+      - name: ThinkPHP Framework
+        if: matrix.framework == 'thinkphp'
+        run: composer require "topthink/think-container:^3.0"
       - name: Other/No Framework
         if: matrix.framework == 'default'
         run: composer require hyperf/pimple
