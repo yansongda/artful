@@ -43,7 +43,6 @@ export default [
     text: '升级指南',
     collapsed: false,
     items: [
-      { text: 'v1.2.1', link: '/docs/v1/upgrade/v1.2.1' },
       { text: 'v1.2.0', link: '/docs/v1/upgrade/v1.2.0' },
     ]
   },
