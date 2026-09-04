@@ -1,3 +1,13 @@
+## [v1.2.1] - 2026-09-05
+
+### Added
+
+- 兼容 ThinkPHP 8 容器：启动时自动探测并复用 `think\Container`，针对 `think\Container::get()` 不支持自动解析的问题，新增 PSR-11 适配器 `ThinkPHPContainerAdapter` 兜底 (#24, #44)
+
+### Changed
+
+- 移除 `require-dev` 中的 `hyperf/pimple`，CI 矩阵与容器探测分支一一对应 (#43)
+
 ## [v1.2.0] - 2026-09-02
 
 ### Added
